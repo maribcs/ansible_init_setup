@@ -1,0 +1,11 @@
+---
+# tasks file for ssh
+- name: enable PasswordAuthentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: "PasswordAuthentication yes"
+    state: present
+    backup: yes
+  notify:
+    - restart ssh

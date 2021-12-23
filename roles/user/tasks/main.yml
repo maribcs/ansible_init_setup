@@ -1,0 +1,18 @@
+---
+# tasks file for user
+- name: reading csv file
+  read_csv:
+    path: "{{ filepath }}"
+  register: userlist
+  delegate_to: localhost
+- name: display userlist
+  debug:
+    var: userlist.list
+# - name: add users
+#   user:
+#     name: "{{item.username}}"
+#     groups: sudo
+#     shell: /bin/bash    
+#     password: "{{ item.password | password_hash('sha512') }}"
+#     createhome: yes
+#   loop: "{{userlist.list}}"
