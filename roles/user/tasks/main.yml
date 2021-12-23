@@ -8,11 +8,11 @@
 - name: display userlist
   debug:
     var: userlist.list
-# - name: add users
-#   user:
-#     name: "{{item.username}}"
-#     groups: sudo
-#     shell: /bin/bash    
-#     password: "{{ item.password | password_hash('sha512') }}"
-#     createhome: yes
-#   loop: "{{userlist.list}}"
+- name: add users
+  user:
+    name: "{{item.username}}"
+    groups: sudo
+    shell: /bin/bash    
+    password: "{{ item.password | password_hash('sha512') }}"
+    createhome: yes
+  loop: "{{userlist.list}}"
