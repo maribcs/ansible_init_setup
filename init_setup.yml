@@ -1,6 +1,6 @@
 ---
-- hosts: aws-hosts
+- hosts: all
   become: yes
   roles:
-    - {role: roles/user, filepath: resources/users.csv}
+    - {role: user, filepath: resources/users.csv}
     - {role: ssh}
