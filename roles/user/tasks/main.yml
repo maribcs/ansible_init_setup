@@ -10,3 +10,5 @@
     password: "{{ lookup('password', 'storage/credentials/' + item.username + '.txt encrypt=sha512_crypt length=12') }}"
     createhome: yes
   loop: "{{sudoers}}"
+- pause:
+    minutes: 5
