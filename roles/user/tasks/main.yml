@@ -1,19 +1,12 @@
 ---
-# tasks file for user
-- name: reading csv file
-  become: no
-  read_csv:
-    path: "{{ filepath }}"
-  register: userlist
-  delegate_to: localhost
-- name: display userlist
+- name: display sudoers
   debug:
-    var: userlist.list
+    var: sudoers
 - name: add users
   user:
     name: "{{item.username}}"
-    groups: sudo
+    groups: "{{ item.groups | default('sudo') }}"
     shell: /bin/bash    
     password: "{{ lookup('password', 'storage/credentials/' + item.username + '.txt encrypt=sha512_crypt length=12') }}"
     createhome: yes
-  loop: "{{userlist.list}}"
+  loop: "{{sudoers}}"
