@@ -7,7 +7,7 @@
     name: "{{item.username}}"
     groups: "{{ item.groups | default('sudo') }}"
     shell: /bin/bash    
-    password: "{{ lookup('password', 'storage/credentials/' + item.username + '.txt encrypt=sha512_crypt length=12') }}"
+    password: "{{ lookup('password', '/var/lib/awx/storage/credentials/' + item.username + '.txt encrypt=sha512_crypt length=12') }}"
     createhome: yes
   loop: "{{sudoers}}"
 - pause:
