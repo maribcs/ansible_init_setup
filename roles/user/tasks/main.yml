@@ -1,12 +1,20 @@
 ---
 - name: display sudoers
   debug:
-    var: sudoers
+    msg: "username: {{ item.username }}, groups: {{item.groups | default('-')}}"  
+  loop: "{{sudoers}}"
+  loop_control:
+    index_var: idx
+    label:
+      - "user {{idx+1}}"
 - name: add users
   user:
     name: "{{item.username}}"
     groups: "{{ item.groups | default('sudo') }}"
-    shell: /bin/bash    
-    password: "{{ lookup('password', '/var/lib/awx/storage/credentials/' + item.username + '.txt encrypt=sha512_crypt length=12') }}"
+    shell: /bin/bash
+    password: "{{ item.password | password_hash('sha512', 'hhuBH3KM24WTqYzk') }}"
     createhome: yes
   loop: "{{sudoers}}"
+  loop_control:
+    label:
+      - "{{item.username}}"
