@@ -10,7 +10,7 @@
 - name: add users
   user:
     name: "{{item.username}}"
-    groups: "{{ item.groups | default('sudo') }}"
+    groups: "{{ item.groups | default('') }}"
     shell: /bin/bash
     password: "{{ item.password | password_hash('sha512', 'hhuBH3KM24WTqYzk') }}"
     createhome: yes
