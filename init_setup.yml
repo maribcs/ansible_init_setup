@@ -3,5 +3,5 @@
   become: yes
   vars_files: group_vars/vault.yml
   roles:
+    - {role: ssh}
     - {role: user}
-    - {role: ssh}  
