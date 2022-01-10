@@ -1,20 +1,20 @@
 ---
-- name: display sudoers
+- name: display default users
   debug:
-    msg: "username: {{ item.username }}, groups: {{item.groups | default('-')}}"  
-  loop: "{{sudoers}}"
+    msg: "username: {{ item.username }}, groups: {{ item.groups | default('-') }}"  
+  loop: "{{ default_users }}"
   loop_control:
     index_var: idx
     label:
-      - "user {{idx+1}}"
+      - "user {{ idx+1 }}"
 - name: add users
   user:
-    name: "{{item.username}}"
+    name: "{{ item.username }}"
     groups: "{{ item.groups | default('') }}"
     shell: /bin/bash
     password: "{{ item.password | password_hash('sha512', 'hhuBH3KM24WTqYzk') }}"
     createhome: yes
-  loop: "{{sudoers}}"
+  loop: "{{ default_users }}"
   loop_control:
     label:
-      - "{{item.username}}"
+      - "{{ item.username }}"
